@@ -1,12 +1,36 @@
 import styled from "styled-components";
 import ImgSlider from "./ImgSlider";
+import NewDisney from "./NewDisney";
+import Originals from "./Originals";
+import Recommend from "./Recommend";
+import Trending from "./Trending";
 import Viewers from "./Viewers";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import db from "../firebase";
+import { setMovies } from "../features/user/movie/movieSlice";
+import { selectUserName } from "../features/user/userSlice";
 
 const Home = (props) => {
+    const dispatch = useDispatch();
+    const userName = useSelector(selectUserName);
+    let recommends = [];
+    let newDisneys = [];
+    let originals = [];
+    let trending = [];
+  
+    useEffect(() =>{
+        console.log("hello");
+    }, [])
+
     return (
         <Container>
             <ImgSlider />
             <Viewers />
+            <Recommend />
+            <NewDisney />
+            <Originals />
+            <Trending />
         </Container>
     );
 }
