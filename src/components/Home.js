@@ -20,7 +20,9 @@ const Home = (props) => {
     let trending = [];
   
     useEffect(() =>{
-        console.log("hello");
+        db.collection("movies").onSnapshot((snapshot)=>{
+            console.log(snapshot);
+        })
     }, [])
 
     return (

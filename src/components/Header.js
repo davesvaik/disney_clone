@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "../firebase";
-import { signInWithPopup } from "firebase/auth";
+//import { signInWithPopup } from "firebase/auth";
 import { 
     selectUserName, 
     selectUserPhoto, 
@@ -29,7 +29,8 @@ const Header = (props) => {
 
     const handleAuth = () => {
         if (!userName) {
-        signInWithPopup(auth, provider)
+        auth
+        .signInWithPopup( provider)
             .then((result) => {
                 setUser(result.user)
             })
