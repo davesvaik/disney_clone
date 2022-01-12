@@ -14,16 +14,43 @@ import { selectUserName } from "../features/user/userSlice";
 const Home = (props) => {
     const dispatch = useDispatch();
     const userName = useSelector(selectUserName);
-    let recommends = [];
-    let newDisneys = [];
-    let originals = [];
+    let recommend = [];
+    let newDisney = [];
+    let original = [];
     let trending = [];
   
-    useEffect(() =>{
-        db.collection("movies").onSnapshot((snapshot)=>{
-            console.log(snapshot);
-        })
-    }, [])
+    useEffect(() => {
+        db.collection("movies").onSnapshot((snapshot) => {
+          snapshot.docs.map((doc) => {
+            switch (doc.data().type) {
+              case "recommend":
+                recommend = [...recommend, { id: doc.id, ...doc.data() }];
+                break;
+    
+              case "new":
+                newDisney = [...newDisney, { id: doc.id, ...doc.data() }];
+                break;
+    
+              case "original":
+                original = [...original, { id: doc.id, ...doc.data() }];
+                break;
+    
+              case "trending":
+                trending = [...trending, { id: doc.id, ...doc.data() }];
+                break;
+            }
+          });
+    
+          dispatch(
+            setMovies({
+              recommend: recommend,
+              newDisney: newDisney,
+              original: original,
+              trending: trending,
+            })
+          );
+        });
+      }, [userName]);
 
     return (
         <Container>
