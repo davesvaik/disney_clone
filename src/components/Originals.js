@@ -1,31 +1,23 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectOriginal } from "../features/user/movie/movieSlice";
 
 const Originals = (props) => {
+    const movies = useSelector(selectOriginal);
     return (
         <Container>
             <h4>Originals</h4>
             <Content>
-                <Wrap>
-                    <Link to="/">
-                        <img src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/346/650346-h" alt="" />
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to="/">
-                        <img src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/346/650346-h" alt="" />
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to="/">
-                        <img src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/346/650346-h" alt="" />
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to="/">
-                        <img src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/346/650346-h" alt="" />
-                    </Link>
-                </Wrap>
+            { movies && 
+                movies.map((movie) => (
+                    <Wrap key={movie.id}>
+                        <Link to={`/detail/` + movie.id}>
+                            <img src={movie.cardImg} alt={movie.title} />
+                        </Link>
+                    </Wrap>
+                ))
+                }
             </Content>
         </Container>
     );
